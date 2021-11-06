@@ -1,0 +1,18 @@
+package image_processing
+public
+	
+with datatypes;
+	
+-- ref. Przetwarzania obrazu
+process image_analysis
+	features
+		picture 			: in data port datatypes::picture;
+		obstacle_detected 	: out data port datatypes::boolean;
+	flows
+		f0: flow path picture -> obstacle_detected;
+end image_analysis;
+	
+process implementation image_analysis.i
+end image_analysis.i;
+	
+end image_processing;

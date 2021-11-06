@@ -1,0 +1,19 @@
+package overtaking_detection_processing
+public
+	
+with datatypes;
+
+-- ref. Wykrycie wyprzedzania
+process overtaking_detection
+	features
+		lane_change 		: in data port datatypes::boolean;
+		overtaking_active 	: out data port datatypes::boolean;
+	flows
+		f0: flow path lane_change -> overtaking_active;
+end overtaking_detection;
+	
+process implementation overtaking_detection.i
+end overtaking_detection.i;
+	
+
+end overtaking_detection_processing;

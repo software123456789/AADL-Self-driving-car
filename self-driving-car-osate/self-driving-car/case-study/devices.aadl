@@ -1,0 +1,94 @@
+package devices
+public
+
+with datatypes;
+
+--------------------------------------------------------------
+--------------------- DEVICES WEJSCIOWE ----------------------
+--------------------------------------------------------------
+
+-- ref. Kamera -----------------------------------------------
+device camera
+	features
+		picture : out data port datatypes::picture;
+	flows
+		f0 		: flow source picture;
+end camera;
+---------------------------------------------------------------
+
+-- ref. Radar 1 / Radar 2 -------------------------------------
+device radar
+	features
+		distance : out data port datatypes::distance;
+	flows
+		f0 		 : flow source distance;
+end radar;
+
+device radar1 extends radar end radar1;
+device radar2 extends radar end radar2;
+----------------------------------------------------------------
+
+
+-- ref. Czujnik zmiany pasa ruchu ------------------------------
+device traffic_lane_sensor
+	features
+		lane_crossed : out data port datatypes::boolean;
+	flows
+		f0 			 : flow source lane_crossed;
+end traffic_lane_sensor;
+----------------------------------------------------------------
+
+	
+-- ref. Czujnik prêdkoœci indukcyjny / Czujnik prêdkoœci optyczny --
+device speed_sensor
+	features
+		speed : out data port datatypes::speed;
+	flows
+		f0 	  : flow source speed;
+end speed_sensor;
+
+device induction_speed_sensor extends speed_sensor end induction_speed_sensor;
+device optical_speed_sensor extends speed_sensor end optical_speed_sensor; 
+----------------------------------------------------------------
+
+-- ref. Peda³ przyœpieszenia -----------------------------------
+device acceleration_pedal
+	features
+		speed : out data port datatypes::speed;
+	flows
+		f0    : flow source speed;
+end acceleration_pedal;
+----------------------------------------------------------------
+
+----------------------------------------------------------------
+--------------------- DEVICES WYJŒCIOWE ------------------------
+----------------------------------------------------------------
+
+-- ref. Hamulec
+device brake
+features
+	brake_cmd : in data port datatypes::brake_cmd;
+flows
+	f0 		  : flow sink brake_cmd;
+end brake;
+
+-- ref. Przyœpieszenie silnika elektrycznego
+device accelerator
+features
+	accelerate_cmd : in data port datatypes::accelerate_cmd;
+flows
+	f0 			   : flow sink accelerate_cmd;
+end accelerator;
+	
+-- ref. Panel wyœwietlaj¹cy prêdkoœæ
+device panel
+features
+	current_speed : in data port datatypes::speed;
+	desired_speed : in data port datatypes::speed;
+flows
+	f0 			   : flow sink current_speed;
+	f1			   : flow sink desired_speed;
+end panel;
+	
+	
+end devices;

@@ -1,0 +1,35 @@
+package brake_acceleration_processing
+public
+	
+with datatypes;
+
+-- ref. Obliczenia prêdkoœci
+process speed_controller
+	features
+		obstacle_detected 				: in data port datatypes::boolean;
+		current_distance		 		: in data port datatypes::distance;
+		overtaking_active				: in data port datatypes::boolean;
+		current_speed					: in data port datatypes::speed;
+		desired_speed					: in data port datatypes::speed;
+		
+		brake_cmd						: out data port datatypes::brake_cmd;
+		accelerate_cmd					: out data port datatypes::accelerate_cmd;
+	flows
+		f00: flow path current_speed 		-> brake_cmd;
+		f01: flow path obstacle_detected  	-> brake_cmd;
+		f02: flow path current_distance		-> brake_cmd;
+		f03: flow path overtaking_active	-> brake_cmd;
+		f04: flow path desired_speed		-> brake_cmd;
+		
+		f10: flow path current_speed 		-> accelerate_cmd;
+		f11: flow path obstacle_detected  	-> accelerate_cmd;
+		f12: flow path current_distance		-> accelerate_cmd;
+		f13: flow path overtaking_active	-> accelerate_cmd;
+		f14: flow path desired_speed		-> accelerate_cmd;
+		
+end speed_controller;
+	
+process implementation speed_controller.i
+end speed_controller.i;
+	
+end brake_acceleration_processing;

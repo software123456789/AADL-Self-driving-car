@@ -1,0 +1,20 @@
+package speed_processing
+public
+	
+with datatypes;
+
+-- ref. Obliczenia prêdkoœci
+process speed_voter
+	features
+		speed1 				: in data port datatypes::speed;
+		speed2		 		: in data port datatypes::speed;
+		speed_result		: out data port datatypes::speed;
+	flows
+		f0: flow path speed1 -> speed_result;
+		f1: flow path speed2 -> speed_result;
+end speed_voter;
+	
+process implementation speed_voter.i
+end speed_voter.i;
+	
+end speed_processing;

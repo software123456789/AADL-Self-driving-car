@@ -1,0 +1,62 @@
+package integration
+public
+	
+with devices;
+
+with image_processing;
+with distance_processing;
+with overtaking_detection_processing;
+with speed_processing;
+with panel_processing;
+with brake_acceleration_processing;
+
+system integration
+end integration;
+	
+system implementation integration.functional
+subcomponents	
+-- input devices
+	camera					: device devices::camera;
+	radar1					: device devices::radar1;
+	radar2					: device devices::radar2;
+	traffic_lane_sensor		: device devices::traffic_lane_sensor;
+	induction_speed_sensor	: device devices::induction_speed_sensor;
+	optical_speed_sensor	: device devices::optical_speed_sensor;
+	acceleration_pedal		: device devices::acceleration_pedal;
+	
+-- software and processing
+	image_analysis			: process image_processing::image_analysis.i;
+	distance_voter			: process distance_processing::distance_voter.i;
+	overtaking_detection	: process overtaking_detection_processing::overtaking_detection.i;
+	speed_voter				: process speed_processing::speed_voter.i;
+	panel_controller		: process panel_processing::panel_controller.i;
+	speed_controller		: process brake_acceleration_processing::speed_controller.i;
+	
+-- output devices
+	brake 					: device devices::brake;
+	accelerator 			: device devices::accelerator;
+	panel					: device devices::panel;
+connections
+-- inputs to processes	
+	c00 : port camera.picture 						  	-> image_analysis.picture;
+	c01 : port radar1.distance							-> distance_voter.distance1;
+	c02 : port radar2.distance							-> distance_voter.distance2;
+	c03 : port traffic_lane_sensor.lane_crossed 		-> overtaking_detection.lane_change;
+	c04 : port induction_speed_sensor.speed				-> speed_voter.speed1;
+	c05 : port optical_speed_sensor.speed				-> speed_voter.speed2;
+	c06 : port acceleration_pedal.speed 				-> panel_controller.desired_speed;
+	c07 : port acceleration_pedal.speed 				-> speed_controller.desired_speed;
+-- processes to processes
+	c08 : port image_analysis.obstacle_detected 		-> speed_controller.obstacle_detected;
+	c09 : port speed_voter.speed_result 			  	-> speed_controller.current_speed;
+	c10 : port overtaking_detection.overtaking_active 	-> speed_controller.overtaking_active;
+	c11 : port distance_voter.distance_result 			-> speed_controller.current_distance;
+	c12 : port speed_voter.speed_result					-> panel_controller.current_speed;
+-- processes to output 
+	c13 : port speed_controller.brake_cmd				-> brake.brake_cmd;
+	c14 : port speed_controller.accelerate_cmd			-> accelerator.accelerate_cmd;
+	c15 : port panel_controller.current_speed_result	-> panel.current_speed;
+	c16 : port panel_controller.desired_speed_result	-> panel.desired_speed;
+end integration.functional;
+	
+end integration;
