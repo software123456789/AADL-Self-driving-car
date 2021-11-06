@@ -1,7 +1,7 @@
 # AADL-Self-driving-car
 Temat projektu: Opracowanie modelu (AADL) samochodu autonomicznego z uwzględnieniem dynamiki (Simulink) oraz analizą czasową i bezpieczeństwa (Ocarina). Generacja kodu.
 # Case-study
-![image](https://user-images.githubusercontent.com/39568472/137641992-0bc0aad3-c586-45d5-8f51-5191dc5c12bb.png)
+![self-driving-car-2](https://user-images.githubusercontent.com/39568472/140607030-75356243-2768-4602-895a-cd7d2c927100.PNG)
 # Modele danych
 ![image](https://user-images.githubusercontent.com/39568472/137642009-f00d3ed3-58a0-4d1a-90da-04e4aa13fcb1.png)
 # Procesy i procesory 
