@@ -6,10 +6,7 @@ Temat projektu: Opracowanie modelu (AADL) samochodu autonomicznego z uwzględnie
 ![self-driving-car-3](https://user-images.githubusercontent.com/39568472/141683373-995259ac-7fd2-4934-a513-1143e28c966f.PNG)
 # Modele danych
 ![image](https://user-images.githubusercontent.com/39568472/140623961-119d2f25-8f6c-4767-889e-40a1bcd7f846.png)
-# Procesy i procesory - to be updated...
-![image](https://user-images.githubusercontent.com/39568472/137642030-45a6b993-6e0e-4c74-85a0-4c31a9ec6273.png)
-# Magistrale i komunikacja - to be updated...
-![image](https://user-images.githubusercontent.com/39568472/137642046-dcd88894-560b-4a34-8a1a-b748d2a61d13.png)
-# Perspektywa wdrożenia - to be updated...
-![image](https://user-images.githubusercontent.com/39568472/137642076-bd88e7f9-aa5f-487d-bda0-bfc6b8060178.png)
+# Perspektywa wdrożenia 
+![self-driving-car-4](https://user-images.githubusercontent.com/39568472/141689099-a89d641d-298c-4756-bdd9-d6175a400923.PNG)
+
 
