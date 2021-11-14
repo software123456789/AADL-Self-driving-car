@@ -1,0 +1,23 @@
+Latency analysis with preference settings: asynchronous system/major partition frame/worst case as deadline/best case as empty queue/queuing latency enabled
+
+"Latency results for end-to-end flow 'radar1_to_brake' of system 'integration.functional' "
+
+Result,Min Specified,Min Actual,Min Method,Max Specified,Max Actual,Max Method,Comments
+device radar1 (source f0),0.0ms,0.0ms,first sampling,0.0ms,0.0ms,first sampling
+device radar1 (source f0),0.0ms,6.0ms,processing time,0.0ms,8.0ms,processing time,Using execution time as deadline was not set
+connection radar1.distance -> data_acquisition.thr_distance_voter.distance1,0.0ms,0.0ms,no sampling/queuing latency,0.0ms,0.0ms,no sampling/queuing latency
+thread data_acquisition.thr_distance_voter (path f0),0.0ms,0.0ms,sampling,0.0ms,8.0ms,sampling,Best case 0 ms worst case 8.0ms (period) sampling delay
+thread data_acquisition.thr_distance_voter (path f0),0.0ms,0.0ms,no sampling/queuing latency,0.0ms,8.0ms,deadline,Using deadline as execution time was not set
+connection data_acquisition.thr_distance_voter.distance_result -> speed_controller.thr_speed_controller.current_distance,0.0ms,0.0ms,no sampling/queuing latency,0.0ms,0.0ms,no sampling/queuing latency
+thread speed_controller.thr_speed_controller (path f02),0.0ms,0.0ms,sampling,0.0ms,5.0ms,sampling,Best case 0 ms worst case 5.0ms (period) sampling delay
+thread speed_controller.thr_speed_controller (path f02),0.0ms,0.0ms,no sampling/queuing latency,0.0ms,5.0ms,deadline,Using deadline as execution time was not set
+connection speed_controller.thr_speed_controller.brake_cmd -> brake.brake_cmd,0.0ms,0.0ms,no sampling/queuing latency,0.0ms,0.0ms,no sampling/queuing latency
+device brake (sink f0),0.0ms,0.0ms,sampling,0.0ms,2.0ms,sampling,Assume Periodic dispatch because period is set,Best case 0 ms worst case 2.0ms (period) sampling delay
+device brake (sink f0),0.0ms,0.0ms,no sampling/queuing latency,0.0ms,2.0ms,deadline,Using deadline as execution time was not set
+Latency Total,0.0ms,6.0ms,,0.0ms,38.0ms
+Specified End To End Latency,,0.0ms,,,0.0ms
+End to end Latency Summary
+WARNING,Expected end to end latency is not specified
+
+
+

@@ -77,6 +77,9 @@ thread speed_controller_thr
 		f12: flow path current_distance		-> accelerate_cmd;
 		f13: flow path overtaking_active	-> accelerate_cmd;
 		f14: flow path desired_speed		-> accelerate_cmd;
+	properties
+		Dispatch_Protocol => Periodic;
+		Period            => 5ms;
 end speed_controller_thr;
 
 thread implementation speed_controller_thr.i

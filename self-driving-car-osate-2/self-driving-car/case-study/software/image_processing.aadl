@@ -23,6 +23,10 @@ thread image_analysis_thr
 		obstacle_detected 	: out data port datatypes::boolean;
 	flows
 		f0: flow path picture -> obstacle_detected;
+	properties
+		Dispatch_Protocol => Periodic;
+		Period            => 50ms;
+		compute_execution_time => 10 ms .. 40 ms;
 end image_analysis_thr;
 
 thread implementation image_analysis_thr.i

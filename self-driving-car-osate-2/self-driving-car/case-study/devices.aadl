@@ -13,6 +13,9 @@ device camera
 		picture : out data port datatypes::picture;
 	flows
 		f0 		: flow source picture;
+	properties 
+		Period => 200ms;
+		compute_execution_time => 20 ms .. 50 ms;
 end camera;
 ---------------------------------------------------------------
 
@@ -24,8 +27,17 @@ device radar
 		f0 		 : flow source distance;
 end radar;
 
-device radar1 extends radar end radar1;
-device radar2 extends radar end radar2;
+device radar1 extends radar 
+properties 
+	Period => 10ms;
+	compute_execution_time => 6 ms .. 8 ms;		
+end radar1;
+
+device radar2 extends radar 
+properties 
+	Period => 10ms;
+	compute_execution_time => 6 ms .. 8 ms;
+end radar2;
 ----------------------------------------------------------------
 
 
@@ -35,6 +47,9 @@ device traffic_lane_sensor
 		lane_crossed : out data port datatypes::boolean;
 	flows
 		f0 			 : flow source lane_crossed;
+	properties
+		Period => 10ms;
+		compute_execution_time => 5 ms .. 8 ms;
 end traffic_lane_sensor;
 ----------------------------------------------------------------
 
@@ -47,8 +62,17 @@ device speed_sensor
 		f0 	  : flow source speed;
 end speed_sensor;
 
-device induction_speed_sensor extends speed_sensor end induction_speed_sensor;
-device optical_speed_sensor extends speed_sensor end optical_speed_sensor; 
+device induction_speed_sensor extends speed_sensor 
+properties
+	Period => 10ms;
+	compute_execution_time => 6 ms .. 9 ms;
+end induction_speed_sensor;
+
+device optical_speed_sensor extends speed_sensor 
+properties
+	Period => 10ms;
+	compute_execution_time => 6 ms .. 9 ms;
+end optical_speed_sensor; 
 ----------------------------------------------------------------
 
 -- ref. Peda³ przyœpieszenia -----------------------------------
@@ -70,6 +94,8 @@ features
 	brake_cmd : in data port datatypes::brake_cmd;
 flows
 	f0 		  : flow sink brake_cmd;
+properties
+	Period => 2 ms; 
 end brake;
 
 -- ref. Przyœpieszenie silnika elektrycznego
@@ -78,6 +104,8 @@ features
 	accelerate_cmd : in data port datatypes::accelerate_cmd;
 flows
 	f0 			   : flow sink accelerate_cmd;
+properties
+	Period => 2 ms;
 end accelerator;
 	
 -- ref. Panel wyœwietlaj¹cy prêdkoœæ

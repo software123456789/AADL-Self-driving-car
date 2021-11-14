@@ -128,8 +128,8 @@
           <seg>c06</seg>
         </bo>
         <bendpoints>
-          <point x="526.734375" y="638.0"/>
-          <point x="608.734375" y="644.0"/>
+          <point x="468.0" y="660.0"/>
+          <point x="609.0" y="659.0"/>
         </bendpoints>
       </element>
       <element uuid="647801a3-279a-4143-b69a-e4460e649d1b" manual="true">
@@ -144,8 +144,8 @@
           <seg>c07</seg>
         </bo>
         <bendpoints>
-          <point x="574.734375" y="488.0"/>
-          <point x="711.734375" y="488.0"/>
+          <point x="453.0" y="529.0"/>
+          <point x="735.0" y="517.0"/>
         </bendpoints>
       </element>
       <element uuid="d38b8251-109a-48bb-a953-6170908835d0" manual="true">
@@ -231,9 +231,9 @@
         </bo>
         <bendpoints>
           <point x="616.1055908203125" y="381.8333435058594"/>
-          <point x="614.0" y="445.0"/>
+          <point x="618.0" y="451.0"/>
           <point x="640.5963745117188" y="449.33331298828125"/>
-          <point x="648.4486083984375" y="449.33331298828125"/>
+          <point x="698.0" y="450.0"/>
         </bendpoints>
       </element>
       <element uuid="0ed12c40-78e5-40e9-9aad-b6b8d36b3359" manual="true">

@@ -23,6 +23,9 @@ thread overtaking_detection_thr
 		overtaking_active 	: out data port datatypes::boolean;
 	flows
 		f0: flow path lane_change -> overtaking_active;
+	properties
+		Dispatch_Protocol => Periodic;
+		Period            => 6ms;	
 end overtaking_detection_thr;
 
 thread implementation overtaking_detection_thr.i
