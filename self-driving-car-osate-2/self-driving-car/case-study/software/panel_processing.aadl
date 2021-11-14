@@ -1,0 +1,45 @@
+package panel_processing
+public
+	
+with datatypes;
+
+-- ref. Kontroler panelu
+process panel_controller
+	features
+		current_speed				: in data port datatypes::speed;
+		desired_speed		 		: in data port datatypes::speed;
+		current_speed_result		: out data port datatypes::speed;
+		desired_speed_result		: out data port datatypes::speed;
+	flows
+		f0: flow path current_speed -> current_speed_result;
+		f1: flow path desired_speed -> desired_speed_result;
+end panel_controller;
+	
+process implementation panel_controller.i
+	subcomponents
+		thr_panel_controller : thread panel_controller_thr.i;
+	connections
+		c0: port current_speed -> thr_panel_controller.current_speed;
+		c1: port desired_speed -> thr_panel_controller.desired_speed;
+		c2: port thr_panel_controller.current_speed_result -> current_speed_result;
+		c3: port thr_panel_controller.desired_speed_result -> desired_speed_result;
+	flows
+		f0: flow path current_speed -> c0 -> thr_panel_controller.f0 -> c2 -> current_speed_result;
+		f1: flow path desired_speed -> c1 -> thr_panel_controller.f1 -> c3 -> desired_speed_result;
+end panel_controller.i;
+
+thread panel_controller_thr
+	features
+		current_speed				: in data port datatypes::speed;
+		desired_speed		 		: in data port datatypes::speed;
+		current_speed_result		: out data port datatypes::speed;
+		desired_speed_result		: out data port datatypes::speed;
+	flows
+		f0: flow path current_speed -> current_speed_result;
+		f1: flow path desired_speed -> desired_speed_result;
+end panel_controller_thr;
+
+thread implementation panel_controller_thr.i
+end panel_controller_thr.i;
+	
+end panel_processing;
