@@ -1,0 +1,19 @@
+package hardware
+public
+	
+-- with SEI;
+
+bus can
+properties
+	Latency => 1 Ms .. 1 Ms;
+	Transmission_Time => [ Fixed => 10 ms .. 30ms;
+                          PerByte => 1 us .. 10 us; ];
+end can;
+	
+processor ecu
+features
+	socket1 : requires bus access can;
+	socket2 : requires bus access can; 
+end ecu;
+	
+end hardware;

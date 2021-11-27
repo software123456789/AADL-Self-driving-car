@@ -1,0 +1,321 @@
+package devices
+public
+
+with datatypes;
+with emv2;
+with arp4761;
+
+--------------------------------------------------------------
+--------------------- DEVICES WEJSCIOWE ----------------------
+--------------------------------------------------------------
+
+-- ref. Kamera -----------------------------------------------
+device camera
+	features
+		picture : out data port datatypes::picture;
+	flows
+		f0 		: flow source picture;
+	properties 
+		Period => 200ms;
+		compute_execution_time => 20 ms .. 50 ms;
+	annex EMV2 {**
+		use types 		ErrorLibrary;
+
+		error propagations
+			picture : out propagation {ItemOmission};
+		flows
+			ef0 : error source picture{ItemOmission};
+		end propagations;
+
+		properties
+	    	emv2::occurrencedistribution => [ probabilityValue => 0.01e-4 ; Distribution => Poisson;] applies to picture.itemomission;
+			emv2::severity => ARP4761::Major applies to picture.itemomission;
+			emv2::likelihood => ARP4761::Probable applies to picture.itemomission;
+			emv2::hazards => 
+				([	
+					crossreference => "N/A";
+					failure => "ItemOmission";
+					phases => ("all");
+					description => "Brak obrazu z kamery";
+					comment => "Ma wp³yw na proces akwizycji danych";
+				])
+			applies to picture.itemomission;
+		**};
+end camera;
+---------------------------------------------------------------
+
+-- ref. Radar 1 / Radar 2 -------------------------------------
+device radar
+	features
+		distance : out data port datatypes::distance;
+	flows
+		f0 		 : flow source distance;
+	annex EMV2 {**
+		use types 		ErrorLibrary;
+
+		error propagations
+			distance : out propagation {ItemOmission,OutOfRange};
+		flows
+			ef0 : error source distance{ItemOmission,OutOfRange};
+		end propagations;
+
+		properties
+			emv2::severity => ARP4761::Major applies to distance.ItemOmission;
+			emv2::likelihood => ARP4761::Probable applies to distance.ItemOmission;
+			emv2::severity => ARP4761::Minor applies to distance.OutOfRange;
+			emv2::likelihood => ARP4761::Probable applies to distance.OutOfRange;
+	**};
+end radar;
+
+device radar1 extends radar 
+properties 
+	Period => 10ms;
+	compute_execution_time => 6 ms .. 8 ms;		
+annex EMV2 {**
+	properties
+		emv2::hazards => 
+			([	crossreference => "N/A";
+				failure => "OutOfRange";
+				phases => ("all");
+				description => "Niew³aœciwe dane z radaru 1";
+				comment => "Radar 1 wysy³a niew³aœciwe dane. Powinno byæ to wykryte przez voter i obsluzone.";
+			])
+			applies to distance.OutOfRange;	
+			
+		emv2::hazards => 
+			([	crossreference => "N/A";
+				failure => "ItemOmission";
+				phases => ("all");
+				description => "Brak danych z radaru 1";
+				comment => "Radar 1 nie wysy³a danych. Mo¿e to powodowaæ b³¹d gdy oba radary nie wysy³aj¹ danych.";
+			])
+			applies to distance.ItemOmission;
+**};
+end radar1;
+
+device radar2 extends radar 
+properties 
+	Period => 10ms;
+	compute_execution_time => 6 ms .. 8 ms;
+annex EMV2 {**
+	properties
+		emv2::hazards => 
+			([	crossreference => "N/A";
+				failure => "OutOfRange";
+				phases => ("all");
+				description => "Niew³aœciwe dane z radaru 2";
+				comment => "Radar 2 wysy³a niew³aœciwe dane. Powinno byæ to wykryte przez voter i obsluzone.";
+			])
+			applies to distance.OutOfRange;	
+			
+		emv2::hazards => 
+			([	crossreference => "N/A";
+				failure => "ItemOmission";
+				phases => ("all");
+				description => "Brak danych z radaru 2";
+				comment => "Radar 2 nie wysy³a danych. Mo¿e to powodowaæ b³¹d gdy oba radary nie wysy³aj¹ danych.";
+			])
+			applies to distance.ItemOmission;
+**};
+end radar2;
+----------------------------------------------------------------
+
+
+-- ref. Czujnik zmiany pasa ruchu ------------------------------
+device traffic_lane_sensor
+	features
+		lane_crossed : out data port datatypes::boolean;
+	flows
+		f0 			 : flow source lane_crossed;
+	properties
+		Period => 10ms;
+		compute_execution_time => 5 ms .. 8 ms;
+	annex EMV2 {**
+		use types 		ErrorLibrary;
+
+		error propagations
+			lane_crossed : out propagation {ItemOmission};
+		flows
+			ef0 : error source lane_crossed{ItemOmission};
+		end propagations;
+
+		properties
+			emv2::severity => ARP4761::Minor applies to lane_crossed.ItemOmission;
+			emv2::likelihood => ARP4761::Remote applies to lane_crossed.ItemOmission;
+			emv2::hazards => 
+				([	
+					crossreference => "N/A";
+					failure => "ItemOmission";
+					phases => ("all");
+					description => "Brak sygna³u z czujnika zmiany pasa";
+					comment => "Ma wp³yw na proces akwizycji danych";
+				])
+			applies to lane_crossed.itemomission;
+	**};
+end traffic_lane_sensor;
+----------------------------------------------------------------
+
+	
+-- ref. Czujnik prêdkoœci indukcyjny / Czujnik prêdkoœci optyczny --
+device speed_sensor
+	features
+		speed : out data port datatypes::speed;
+	flows
+		f0 	  : flow source speed;
+	annex EMV2 {**
+		use types 		ErrorLibrary;
+
+		error propagations
+			speed : out propagation {ItemOmission,OutOfRange};
+		flows
+			ef0 : error source speed{ItemOmission,OutOfRange};
+		end propagations;
+
+		properties
+			emv2::severity => ARP4761::Major applies to speed.ItemOmission;
+			emv2::likelihood => ARP4761::Probable applies to speed.ItemOmission;
+			emv2::severity => ARP4761::Minor applies to speed.OutOfRange;
+			emv2::likelihood => ARP4761::Probable applies to speed.OutOfRange;
+	**};
+end speed_sensor;
+
+device induction_speed_sensor extends speed_sensor 
+properties
+	Period => 10ms;
+	compute_execution_time => 6 ms .. 9 ms;
+annex EMV2 {**
+	properties
+		emv2::hazards => 
+			([	crossreference => "N/A";
+				failure => "OutOfRange";
+				phases => ("all");
+				description => "Niew³aœciwe dane z sensora prekoœci indukcyjnego";
+				comment => "Sensor indukcyjny prêdkoœci wysy³a niew³aœciwe dane. Powinno byæ to wykryte przez voter i obsluzone.";
+			])
+			applies to speed.OutOfRange;	
+			
+		emv2::hazards => 
+			([	crossreference => "N/A";
+				failure => "ItemOmission";
+				phases => ("all");
+				description => "Brak danych z sensora prekoœci indukcyjnego";
+				comment => "Sensor prêdkoœci indukcyjny nie wysy³a danych. Mo¿e to powodowaæ b³¹d gdy oba sensory nie wysy³aj¹ danych.";
+			])
+			applies to speed.ItemOmission;
+**};
+end induction_speed_sensor;
+
+device optical_speed_sensor extends speed_sensor 
+properties
+	Period => 10ms;
+	compute_execution_time => 6 ms .. 9 ms;
+annex EMV2 {**
+	properties
+		emv2::hazards => 
+			([	crossreference => "N/A";
+				failure => "OutOfRange";
+				phases => ("all");
+				description => "Niew³aœciwe dane z sensora prekoœci optycznego";
+				comment => "Sensor optyczny prêdkoœci wysy³a niew³aœciwe dane. Powinno byæ to wykryte przez voter i obsluzone.";
+			])
+			applies to speed.OutOfRange;	
+			
+		emv2::hazards => 
+			([	crossreference => "N/A";
+				failure => "ItemOmission";
+				phases => ("all");
+				description => "Brak danych z sensora prekoœci optycznego";
+				comment => "Sensor prêdkoœci optyczny nie wysy³a danych. Mo¿e to powodowaæ b³¹d gdy oba sensory nie wysy³aj¹ danych.";
+			])
+			applies to speed.ItemOmission;
+**};
+end optical_speed_sensor; 
+----------------------------------------------------------------
+
+-- ref. Peda³ przyœpieszenia -----------------------------------
+device acceleration_pedal
+	features
+		speed : out data port datatypes::speed;
+	flows
+		f0    : flow source speed;
+	annex EMV2 {**
+		use types 		ErrorLibrary;
+
+		error propagations
+			speed : out propagation {OutOfRange};
+		flows
+			ef0 : error source speed{OutOfRange};
+		end propagations;
+
+		properties
+			emv2::severity => ARP4761::Minor applies to speed.OutOfRange;
+			emv2::likelihood => ARP4761::Remote applies to speed.OutOfRange;
+			emv2::hazards => 
+				([	
+					crossreference => "N/A";
+					failure => "OutOfRange";
+					phases => ("all");
+					description => "Zla wartosc predkosci z pedalu przyspieszenia";
+					comment => "Ma wp³yw na proces kontroli predkosci";
+				])
+			applies to speed.outofrange;
+	**};
+end acceleration_pedal;
+----------------------------------------------------------------
+
+----------------------------------------------------------------
+--------------------- DEVICES WYJŒCIOWE ------------------------
+----------------------------------------------------------------
+
+-- ref. Hamulec
+device brake
+features
+	brake_cmd : in data port datatypes::brake_cmd;
+flows
+	f0 		  : flow sink brake_cmd;
+properties
+	Period => 2 ms; 
+annex EMV2 {**
+	use types 		ErrorLibrary;
+	use behavior  	ErrorLibrary::FailStop;
+
+	error propagations
+		brake_cmd : in propagation {ItemOmission,OutOfRange};
+	flows
+		ef0 : error sink brake_cmd{ItemOmission,OutOfRange};
+	end propagations;
+**};
+end brake;
+
+-- ref. Przyœpieszenie silnika elektrycznego
+device accelerator
+features
+	accelerate_cmd : in data port datatypes::accelerate_cmd;
+flows
+	f0 			   : flow sink accelerate_cmd;
+properties
+	Period => 2 ms;
+annex EMV2 {** 
+	use types 		ErrorLibrary;
+	use behavior  	ErrorLibrary::FailStop;
+
+	error propagations
+		accelerate_cmd : in propagation {ItemOmission,OutOfRange};
+	flows
+		ef0 : error sink accelerate_cmd{ItemOmission,OutOfRange};
+	end propagations;
+**};
+end accelerator;
+	
+-- ref. Panel wyœwietlaj¹cy prêdkoœæ
+device panel
+features
+	current_speed : in data port datatypes::speed;
+	desired_speed : in data port datatypes::speed;
+flows
+	f0 			   : flow sink current_speed;
+	f1			   : flow sink desired_speed;
+end panel;
+	
+	
+end devices;

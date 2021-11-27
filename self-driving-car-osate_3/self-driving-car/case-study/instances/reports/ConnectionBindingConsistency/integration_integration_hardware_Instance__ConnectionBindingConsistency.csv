@@ -1,0 +1,18 @@
+Check connection binding consistency Report
+
+ERROR:  camera.picture -> data_acquisition.thr_image_analysis.picture: Hardware (processor or device) of connection source is not physically connected by bus specified in connection binding.
+ERROR:  radar1.distance -> data_acquisition.thr_distance_voter.distance1: Hardware (processor or device) of connection source is not physically connected by bus specified in connection binding.
+ERROR:  radar2.distance -> data_acquisition.thr_distance_voter.distance2: Hardware (processor or device) of connection source is not physically connected by bus specified in connection binding.
+ERROR:  traffic_lane_sensor.lane_crossed -> data_acquisition.thr_overtaking_detection.lane_change: Hardware (processor or device) of connection source is not physically connected by bus specified in connection binding.
+ERROR:  induction_speed_sensor.speed -> data_acquisition.thr_speed_voter.speed1: Hardware (processor or device) of connection source is not physically connected by bus specified in connection binding.
+ERROR:  optical_speed_sensor.speed -> data_acquisition.thr_speed_voter.speed2: Hardware (processor or device) of connection source is not physically connected by bus specified in connection binding.
+ERROR:  acceleration_pedal.speed -> panel_controller.thr_panel_controller.desired_speed: Hardware (processor or device) of connection source is not physically connected by bus specified in connection binding.
+ERROR:  acceleration_pedal.speed -> speed_controller.thr_speed_controller.desired_speed: Hardware (processor or device) of connection source is not physically connected by bus specified in connection binding.
+ERROR:  data_acquisition.thr_image_analysis.obstacle_detected -> speed_controller.thr_speed_controller.obstacle_detected: Hardware (processor or device) of connection source and destination are not physically connected by bus.
+ERROR:  data_acquisition.thr_distance_voter.distance_result -> speed_controller.thr_speed_controller.current_distance: Hardware (processor or device) of connection source and destination are not physically connected by bus.
+ERROR:  data_acquisition.thr_overtaking_detection.overtaking_active -> speed_controller.thr_speed_controller.overtaking_active: Hardware (processor or device) of connection source and destination are not physically connected by bus.
+ERROR:  data_acquisition.thr_speed_voter.speed_result -> speed_controller.thr_speed_controller.current_speed: Hardware (processor or device) of connection source and destination are not physically connected by bus.
+ERROR:  panel_controller.thr_panel_controller.current_speed_result -> panel.current_speed: Hardware (processor or device) of connection destination is not physically connected by bus specified in connection binding.
+ERROR:  panel_controller.thr_panel_controller.desired_speed_result -> panel.desired_speed: Hardware (processor or device) of connection destination is not physically connected by bus specified in connection binding.
+ERROR:  speed_controller.thr_speed_controller.brake_cmd -> brake.brake_cmd: Hardware (processor or device) of connection destination is not physically connected by bus specified in connection binding.
+ERROR:  speed_controller.thr_speed_controller.accelerate_cmd -> accelerator.accelerate_cmd: Hardware (processor or device) of connection destination is not physically connected by bus specified in connection binding.

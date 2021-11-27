@@ -1,0 +1,45 @@
+package datatypes
+public
+	
+with base_types;
+with data_model;
+
+-- ref. Obraz 
+-- out dla device camera
+-- in dla process image_analysis.i
+data picture 
+properties
+	data_size => 600 KByte;
+	data_model::data_representation => array;
+end picture; 
+
+-- ref. Odleg³oœæ od przeszkody 1 / Odleg³oœæ od przeszkody 2 / Aktualna odleg³oœæ
+-- out dla radar
+-- in dla distance_voter / out dla distance voter
+data distance extends base_types::Integer_8
+end distance;
+
+-- ref. Zmiana pasa / Czy wykryto przeszkodê
+-- out dla lane_sensor
+-- out dla process image_analysis.i
+data boolean
+properties
+	data_size => 1 bits;
+end boolean;
+
+-- ref. Prêdkoœæ 1 / Prêdkoœæ 2 / ¯¹dana prêdkoœæ -- out speed sensor / acceleration_pedal
+data speed extends base_types::unsigned_16
+end speed;
+
+-- ref. cmd przyœpiesz -- in dla accelerator
+data accelerate_cmd extends Base_Types::Integer_8
+end accelerate_cmd;
+
+-- ref. cmd zwolnij -- in dla brake
+data brake_cmd extends Base_Types::Integer_8
+end brake_cmd;
+
+
+
+	
+end datatypes;

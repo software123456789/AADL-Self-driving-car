@@ -1,0 +1,35 @@
+package overtaking_detection_processing
+public
+	
+with datatypes;
+
+-- process changed to thread
+
+-- ref. Wykrycie wyprzedzania
+--process overtaking_detection
+--	features
+--		lane_change 		: in data port datatypes::boolean;
+--		overtaking_active 	: out data port datatypes::boolean;
+--	flows
+--		f0: flow path lane_change -> overtaking_active;
+--end overtaking_detection;
+--	
+--process implementation overtaking_detection.i
+--end overtaking_detection.i;
+	
+thread overtaking_detection_thr
+	features
+		lane_change 		: in data port datatypes::boolean;
+		overtaking_active 	: out data port datatypes::boolean;
+	flows
+		f0: flow path lane_change -> overtaking_active;
+	properties
+		Dispatch_Protocol => Periodic;
+		Period            => 6ms;	
+end overtaking_detection_thr;
+
+thread implementation overtaking_detection_thr.i
+end overtaking_detection_thr.i;
+
+
+end overtaking_detection_processing;

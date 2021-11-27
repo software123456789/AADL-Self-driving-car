@@ -1,0 +1,101 @@
+package data_acquisition
+public
+	
+with datatypes;
+
+with image_processing;
+with distance_processing;
+with overtaking_detection_processing;
+with speed_processing;
+
+-- ref. Akwizycja danych
+process data_acquisition
+	features
+		
+		-- Inputs 
+		picture 			 : in data port datatypes::picture;
+		distance1 			 : in data port datatypes::distance;
+		distance2		 	 : in data port datatypes::distance;
+		lane_change 		 : in data port datatypes::boolean;
+		speed1 				 : in data port datatypes::speed;
+		speed2		 		 : in data port datatypes::speed;
+
+		-- Outputs
+		obstacle_detected 	 : out data port datatypes::boolean;
+		distance_result		 : out data port datatypes::distance;
+		overtaking_active 	 : out data port datatypes::boolean;
+		speed_result		 : out data port datatypes::speed;
+				
+	flows
+		f0: flow path picture -> obstacle_detected;
+		f1: flow path distance1 -> distance_result;
+		f2: flow path distance2 -> distance_result;
+		f3: flow path lane_change -> overtaking_active;
+		f4: flow path speed1 -> speed_result;
+		f5: flow path speed2 -> speed_result;
+	
+	annex EMV2 {**
+		use types 		ErrorLibrary;
+		use behavior  	ErrorLibrary::FailStop;
+	
+		error propagations
+			picture : in propagation {ItemOmission};
+			distance1 : in propagation {ItemOmission,OutOfRange};
+			distance2 : in propagation {ItemOmission,OutOfRange};
+			lane_change : in propagation {ItemOmission};
+			
+			obstacle_detected : out propagation {ItemOmission};
+			distance_result : out propagation {ItemOmission, OutOfRange};
+			overtaking_active : out propagation {ItemOmission};
+			
+		flows
+			ef0 : error path picture{ItemOmission} -> obstacle_detected{ItemOmission};
+			ef1 : error path distance1{ItemOmission} -> distance_result{ItemOmission};
+			ef2 : error path distance1{ItemOmission} -> distance_result{OutOfRange};
+			ef3 : error path distance2{ItemOmission} -> distance_result{ItemOmission};
+			ef4 : error path distance2{ItemOmission} -> distance_result{OutOfRange};
+			ef5 : error path lane_change{ItemOmission} -> overtaking_active{ItemOmission};
+		end propagations;
+	**};
+	
+end data_acquisition;
+	
+process implementation data_acquisition.i
+	
+	subcomponents
+		thr_image_analysis 			: thread image_processing::image_analysis_thr.i;
+		thr_distance_voter 			: thread distance_processing::distance_voter_thr.i;
+		thr_overtaking_detection 	: thread overtaking_detection_processing::overtaking_detection_thr.i;
+		thr_speed_voter				: thread speed_processing::speed_voter_thr.i;
+	connections
+		-- kamera
+		c00: port picture -> thr_image_analysis.picture;
+		c01: port thr_image_analysis.obstacle_detected -> obstacle_detected;
+		-- radar
+		c10: port distance1 -> thr_distance_voter.distance1;
+		c11: port distance2 -> thr_distance_voter.distance2;
+		c12: port thr_distance_voter.distance_result -> distance_result;
+		-- wyprzedzanie
+		c20: port lane_change -> thr_overtaking_detection.lane_change;
+		c21: port thr_overtaking_detection.overtaking_active -> overtaking_active;
+		-- szybkoœæ
+		c30: port speed1 -> thr_speed_voter.speed1;
+		c31: port speed2 -> thr_speed_voter.speed2;
+		c32: port thr_speed_voter.speed_result -> speed_result;
+		
+	flows
+		-- kamera
+		f0 : flow path picture -> c00 -> thr_image_analysis.f0 -> c01 -> obstacle_detected;
+		-- radar
+		f1 : flow path distance1 -> c10 -> thr_distance_voter.f0 -> c12 -> distance_result;
+		f2 : flow path distance2 -> c11 -> thr_distance_voter.f1 -> c12 -> distance_result;
+		-- wyprzedzanie
+		f3 : flow path lane_change -> c20 -> thr_overtaking_detection.f0 -> c21 -> overtaking_active;
+		-- szybkoœæ
+		f4 : flow path speed1 -> c30 -> thr_speed_voter.f0 -> c32 -> speed_result;
+		f5 : flow path speed2 -> c31 -> thr_speed_voter.f1 -> c32 -> speed_result;
+end data_acquisition.i;
+
+
+	
+end data_acquisition;
