@@ -1,0 +1,5 @@
+package velocity::imported::functions
+public
+with SEI;
+with ARINC653;
+end velocity::imported::functions;

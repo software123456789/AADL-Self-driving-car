@@ -1,0 +1,122 @@
+package brake_acceleration_processing
+public
+	
+with datatypes;
+
+-- ref. Obliczenia prêdkoœci
+process speed_controller
+	features
+		obstacle_detected 				: in data port datatypes::boolean;
+		current_distance		 		: in data port datatypes::distance;
+		overtaking_active				: in data port datatypes::boolean;
+		current_speed					: in data port datatypes::speed;
+		desired_speed					: in data port datatypes::speed;
+		
+		brake_cmd						: out data port datatypes::brake_cmd;
+		accelerate_cmd					: out data port datatypes::accelerate_cmd;
+	flows
+		f00: flow path current_speed 		-> brake_cmd;
+		f01: flow path obstacle_detected  	-> brake_cmd;
+		f02: flow path current_distance		-> brake_cmd;
+		f03: flow path overtaking_active	-> brake_cmd;
+		f04: flow path desired_speed		-> brake_cmd;
+		
+		f10: flow path current_speed 		-> accelerate_cmd;
+		f11: flow path obstacle_detected  	-> accelerate_cmd;
+		f12: flow path current_distance		-> accelerate_cmd;
+		f13: flow path overtaking_active	-> accelerate_cmd;
+		f14: flow path desired_speed		-> accelerate_cmd;
+	annex EMV2 {**
+	use types 		ErrorLibrary;
+	use behavior  	ErrorLibrary::FailStop;
+
+	error propagations
+		
+		obstacle_detected  : in propagation {ItemOmission};
+		current_distance : in propagation {ItemOmission,OutOfRange};
+		overtaking_active : in propagation {ItemOmission};
+		current_speed : in propagation {ItemOmission,OutOfRange};
+		desired_speed : in propagation {OutOfRange};
+		
+		brake_cmd : out propagation {ItemOmission,OutOfRange};
+		accelerate_cmd : out propagation {ItemOmission,OutOfRange};
+		
+	flows
+		ef00 : error path obstacle_detected{ItemOmission}  -> brake_cmd{ItemOmission};
+		ef01 : error path current_distance{ItemOmission}   -> brake_cmd{ItemOmission};
+		ef02 : error path current_distance{OutOfRange}     -> brake_cmd{OutOfRange};
+		ef03 : error path overtaking_active{ItemOmission}  -> brake_cmd{ItemOmission};
+		ef04 : error path current_speed{OutOfRange}        -> brake_cmd{OutOfRange};
+		ef05 : error path current_speed{ItemOmission}      -> brake_cmd{ItemOmission};
+		ef06 : error path desired_speed{OutOfRange}        -> brake_cmd{OutOfRange};
+
+		
+		ef10 : error path obstacle_detected{ItemOmission}  -> accelerate_cmd{ItemOmission};
+		ef11 : error path current_distance{ItemOmission}   -> accelerate_cmd{ItemOmission};
+		ef12 : error path current_distance{OutOfRange}     -> accelerate_cmd{OutOfRange};
+		ef13 : error path overtaking_active{ItemOmission}  -> accelerate_cmd{ItemOmission};
+		ef14 : error path current_speed{OutOfRange}        -> accelerate_cmd{OutOfRange};
+		ef15 : error path current_speed{ItemOmission}      -> accelerate_cmd{ItemOmission};
+		ef16 : error path desired_speed{OutOfRange}        -> accelerate_cmd{OutOfRange};
+
+	end propagations;
+**};
+end speed_controller;
+	
+process implementation speed_controller.i
+	subcomponents
+		thr_speed_controller : thread  speed_controller_thr.i;
+	connections
+		c0: port current_speed 		-> thr_speed_controller.current_speed;
+		c1: port obstacle_detected 	-> thr_speed_controller.obstacle_detected;
+		c2: port current_distance 	-> thr_speed_controller.current_distance;
+		c3: port overtaking_active 	-> thr_speed_controller.overtaking_active;
+		c4: port desired_speed 		-> thr_speed_controller.desired_speed;
+		
+		c5: port thr_speed_controller.brake_cmd 		-> brake_cmd;
+		c6: port thr_speed_controller.accelerate_cmd	-> accelerate_cmd;
+	flows 
+		f00: flow path current_speed 		-> c0 -> thr_speed_controller.f00 -> c5 -> brake_cmd;
+		f01: flow path obstacle_detected  	-> c1 -> thr_speed_controller.f01 -> c5 -> brake_cmd;
+		f02: flow path current_distance		-> c2 -> thr_speed_controller.f02 -> c5 -> brake_cmd;
+		f03: flow path overtaking_active	-> c3 -> thr_speed_controller.f03 -> c5 -> brake_cmd;
+		f04: flow path desired_speed		-> c4 -> thr_speed_controller.f04 -> c5 -> brake_cmd;
+		
+		f10: flow path current_speed 		-> c0 -> thr_speed_controller.f10 -> c6 -> accelerate_cmd;
+		f11: flow path obstacle_detected  	-> c1 -> thr_speed_controller.f11 -> c6 -> accelerate_cmd;
+		f12: flow path current_distance		-> c2 -> thr_speed_controller.f12 -> c6 -> accelerate_cmd;
+		f13: flow path overtaking_active	-> c3 -> thr_speed_controller.f13 -> c6 -> accelerate_cmd;
+		f14: flow path desired_speed		-> c4 -> thr_speed_controller.f14 -> c6 -> accelerate_cmd;
+end speed_controller.i;
+
+thread speed_controller_thr
+	features
+		obstacle_detected 				: in data port datatypes::boolean;
+		current_distance		 		: in data port datatypes::distance;
+		overtaking_active				: in data port datatypes::boolean;
+		current_speed					: in data port datatypes::speed;
+		desired_speed					: in data port datatypes::speed;
+		
+		brake_cmd						: out data port datatypes::brake_cmd;
+		accelerate_cmd					: out data port datatypes::accelerate_cmd;
+	flows
+		f00: flow path current_speed 		-> brake_cmd;
+		f01: flow path obstacle_detected  	-> brake_cmd;
+		f02: flow path current_distance		-> brake_cmd;
+		f03: flow path overtaking_active	-> brake_cmd;
+		f04: flow path desired_speed		-> brake_cmd;
+		
+		f10: flow path current_speed 		-> accelerate_cmd;
+		f11: flow path obstacle_detected  	-> accelerate_cmd;
+		f12: flow path current_distance		-> accelerate_cmd;
+		f13: flow path overtaking_active	-> accelerate_cmd;
+		f14: flow path desired_speed		-> accelerate_cmd;
+	properties
+		Dispatch_Protocol => Periodic;
+		Period            => 5ms;
+end speed_controller_thr;
+
+thread implementation speed_controller_thr.i
+end speed_controller_thr.i;
+	
+end brake_acceleration_processing;

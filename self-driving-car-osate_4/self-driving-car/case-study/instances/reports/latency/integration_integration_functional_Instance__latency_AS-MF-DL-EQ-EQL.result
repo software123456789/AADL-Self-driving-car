@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="ASCII"?>
+<result:AnalysisResult xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:result="http://www.osate.org/result/Result" analysis="latency" message="AS-MF-DL-EQ-EQL">
+  <modelElement href="../../integration_integration_functional_Instance.aaxl2#/"/>
+  <parameters value="ACED0005737200116A6176612E6C616E672E426F6F6C65616ECD207280D59CFAEE0200015A000576616C7565787001"/>
+  <parameters value="ACED0005737200116A6176612E6C616E672E426F6F6C65616ECD207280D59CFAEE0200015A000576616C7565787001"/>
+  <parameters value="ACED0005737200116A6176612E6C616E672E426F6F6C65616ECD207280D59CFAEE0200015A000576616C7565787001"/>
+  <parameters value="ACED0005737200116A6176612E6C616E672E426F6F6C65616ECD207280D59CFAEE0200015A000576616C7565787001"/>
+  <parameters value="ACED0005737200116A6176612E6C616E672E426F6F6C65616ECD207280D59CFAEE0200015A000576616C7565787000"/>
+  <results message="Latency results for radar1_to_brake" resultType="SUCCESS">
+    <values xsi:type="result:StringValue" value=""/>
+    <values xsi:type="result:RealValue" value="6.0"/>
+    <values xsi:type="result:RealValue" value="38.0"/>
+    <values xsi:type="result:RealValue"/>
+    <values xsi:type="result:RealValue"/>
+    <values xsi:type="result:RealValue"/>
+    <values xsi:type="result:RealValue"/>
+    <diagnostics diagnosticType="WARNING" message="Expected end to end latency is not specified">
+      <modelElement href="../../integration_integration_functional_Instance.aaxl2#//@endToEndFlow.0"/>
+    </diagnostics>
+    <subResults>
+      <values xsi:type="result:RealValue"/>
+      <values xsi:type="result:RealValue"/>
+      <values xsi:type="result:RealValue"/>
+      <values xsi:type="result:RealValue"/>
+      <values xsi:type="result:StringValue" value="first sampling"/>
+      <values xsi:type="result:StringValue" value="first sampling"/>
+      <values xsi:type="result:StringValue" value="source f0"/>
+      <modelElement href="../../integration_integration_functional_Instance.aaxl2#//@componentInstance.1"/>
+    </subResults>
+    <subResults>
+      <values xsi:type="result:RealValue" value="6.0"/>
+      <values xsi:type="result:RealValue" value="8.0"/>
+      <values xsi:type="result:RealValue"/>
+      <values xsi:type="result:RealValue"/>
+      <values xsi:type="result:StringValue" value="processing time"/>
+      <values xsi:type="result:StringValue" value="processing time"/>
+      <values xsi:type="result:StringValue" value="source f0"/>
+      <diagnostics diagnosticType="INFO" message="Using execution time as deadline was not set">
+        <modelElement href="../../integration_integration_functional_Instance.aaxl2#//@componentInstance.1"/>
+      </diagnostics>
+      <modelElement href="../../integration_integration_functional_Instance.aaxl2#//@componentInstance.1"/>
+    </subResults>
+    <subResults>
+      <values xsi:type="result:RealValue"/>
+      <values xsi:type="result:RealValue"/>
+      <values xsi:type="result:RealValue"/>
+      <values xsi:type="result:RealValue"/>
+      <values xsi:type="result:StringValue" value="no sampling/queuing latency"/>
+      <values xsi:type="result:StringValue" value="no sampling/queuing latency"/>
+      <values xsi:type="result:StringValue" value=""/>
+      <modelElement href="../../integration_integration_functional_Instance.aaxl2#//@connectionInstance.1"/>
+    </subResults>
+    <subResults>
+      <values xsi:type="result:RealValue"/>
+      <values xsi:type="result:RealValue" value="8.0"/>
+      <values xsi:type="result:RealValue"/>
+      <values xsi:type="result:RealValue"/>
+      <values xsi:type="result:StringValue" value="sampling"/>
+      <values xsi:type="result:StringValue" value="sampling"/>
+      <values xsi:type="result:StringValue" value="path f0"/>
+      <diagnostics diagnosticType="INFO" message="Best case 0 ms worst case 8.0ms (period) sampling delay">
+        <modelElement href="../../integration_integration_functional_Instance.aaxl2#//@componentInstance.10/@componentInstance.1"/>
+      </diagnostics>
+      <modelElement href="../../integration_integration_functional_Instance.aaxl2#//@componentInstance.10/@componentInstance.1"/>
+    </subResults>
+    <subResults>
+      <values xsi:type="result:RealValue"/>
+      <values xsi:type="result:RealValue" value="8.0"/>
+      <values xsi:type="result:RealValue"/>
+      <values xsi:type="result:RealValue"/>
+      <values xsi:type="result:StringValue" value="no sampling/queuing latency"/>
+      <values xsi:type="result:StringValue" value="deadline"/>
+      <values xsi:type="result:StringValue" value="path f0"/>
+      <diagnostics diagnosticType="INFO" message="Using deadline as execution time was not set">
+        <modelElement href="../../integration_integration_functional_Instance.aaxl2#//@componentInstance.10/@componentInstance.1"/>
+      </diagnostics>
+      <modelElement href="../../integration_integration_functional_Instance.aaxl2#//@componentInstance.10/@componentInstance.1"/>
+    </subResults>
+    <subResults>
+      <values xsi:type="result:RealValue"/>
+      <values xsi:type="result:RealValue"/>
+      <values xsi:type="result:RealValue"/>
+      <values xsi:type="result:RealValue"/>
+      <values xsi:type="result:StringValue" value="no sampling/queuing latency"/>
+      <values xsi:type="result:StringValue" value="no sampling/queuing latency"/>
+      <values xsi:type="result:StringValue" value=""/>
+      <modelElement href="../../integration_integration_functional_Instance.aaxl2#//@connectionInstance.9"/>
+    </subResults>
+    <subResults>
+      <values xsi:type="result:RealValue"/>
+      <values xsi:type="result:RealValue" value="5.0"/>
+      <values xsi:type="result:RealValue"/>
+      <values xsi:type="result:RealValue"/>
+      <values xsi:type="result:StringValue" value="sampling"/>
+      <values xsi:type="result:StringValue" value="sampling"/>
+      <values xsi:type="result:StringValue" value="path f02"/>
+      <diagnostics diagnosticType="INFO" message="Best case 0 ms worst case 5.0ms (period) sampling delay">
+        <modelElement href="../../integration_integration_functional_Instance.aaxl2#//@componentInstance.12/@componentInstance.0"/>
+      </diagnostics>
+      <modelElement href="../../integration_integration_functional_Instance.aaxl2#//@componentInstance.12/@componentInstance.0"/>
+    </subResults>
+    <subResults>
+      <values xsi:type="result:RealValue"/>
+      <values xsi:type="result:RealValue" value="5.0"/>
+      <values xsi:type="result:RealValue"/>
+      <values xsi:type="result:RealValue"/>
+      <values xsi:type="result:StringValue" value="no sampling/queuing latency"/>
+      <values xsi:type="result:StringValue" value="deadline"/>
+      <values xsi:type="result:StringValue" value="path f02"/>
+      <diagnostics diagnosticType="INFO" message="Using deadline as execution time was not set">
+        <modelElement href="../../integration_integration_functional_Instance.aaxl2#//@componentInstance.12/@componentInstance.0"/>
+      </diagnostics>
+      <modelElement href="../../integration_integration_functional_Instance.aaxl2#//@componentInstance.12/@componentInstance.0"/>
+    </subResults>
+    <subResults>
+      <values xsi:type="result:RealValue"/>
+      <values xsi:type="result:RealValue"/>
+      <values xsi:type="result:RealValue"/>
+      <values xsi:type="result:RealValue"/>
+      <values xsi:type="result:StringValue" value="no sampling/queuing latency"/>
+      <values xsi:type="result:StringValue" value="no sampling/queuing latency"/>
+      <values xsi:type="result:StringValue" value=""/>
+      <modelElement href="../../integration_integration_functional_Instance.aaxl2#//@connectionInstance.15"/>
+    </subResults>
+    <subResults>
+      <values xsi:type="result:RealValue"/>
+      <values xsi:type="result:RealValue" value="2.0"/>
+      <values xsi:type="result:RealValue"/>
+      <values xsi:type="result:RealValue"/>
+      <values xsi:type="result:StringValue" value="sampling"/>
+      <values xsi:type="result:StringValue" value="sampling"/>
+      <values xsi:type="result:StringValue" value="sink f0"/>
+      <diagnostics diagnosticType="INFO" message="Assume Periodic dispatch because period is set">
+        <modelElement href="../../integration_integration_functional_Instance.aaxl2#//@componentInstance.7"/>
+      </diagnostics>
+      <diagnostics diagnosticType="INFO" message="Best case 0 ms worst case 2.0ms (period) sampling delay">
+        <modelElement href="../../integration_integration_functional_Instance.aaxl2#//@componentInstance.7"/>
+      </diagnostics>
+      <modelElement href="../../integration_integration_functional_Instance.aaxl2#//@componentInstance.7"/>
+    </subResults>
+    <subResults>
+      <values xsi:type="result:RealValue"/>
+      <values xsi:type="result:RealValue" value="2.0"/>
+      <values xsi:type="result:RealValue"/>
+      <values xsi:type="result:RealValue"/>
+      <values xsi:type="result:StringValue" value="no sampling/queuing latency"/>
+      <values xsi:type="result:StringValue" value="deadline"/>
+      <values xsi:type="result:StringValue" value="sink f0"/>
+      <diagnostics diagnosticType="INFO" message="Using deadline as execution time was not set">
+        <modelElement href="../../integration_integration_functional_Instance.aaxl2#//@componentInstance.7"/>
+      </diagnostics>
+      <modelElement href="../../integration_integration_functional_Instance.aaxl2#//@componentInstance.7"/>
+    </subResults>
+    <modelElement href="../../integration_integration_functional_Instance.aaxl2#//@endToEndFlow.0"/>
+  </results>
+</result:AnalysisResult>

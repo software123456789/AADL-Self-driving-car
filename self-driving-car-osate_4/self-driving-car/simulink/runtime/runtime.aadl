@@ -1,0 +1,31 @@
+package velocity::imported::runtime
+public
+with velocity::imported::functions;
+with SEI;
+with Data_Model;
+
+
+data generictype
+properties
+   Data_Model::Data_Representation => integer;
+end generictype;
+
+
+data generictype_boolean
+properties
+   Data_Model::Data_Representation => boolean;
+end generictype_boolean;
+
+
+system mainsystem
+features
+   accelerator : in event data port generictype;
+   brake : in event data port generictype;
+   speed : out event data port generictype;
+end mainsystem;
+
+
+system implementation mainsystem.i
+subcomponents
+end mainsystem.i; 
+end velocity::imported::runtime; 

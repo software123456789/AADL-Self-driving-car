@@ -1,0 +1,40 @@
+package distance_processing
+public
+	
+with datatypes;
+
+-- process changed to thread
+
+-- ref. Voter odleg³oœci
+--process distance_voter
+--	features
+--		distance1 			: in data port datatypes::distance;
+--		distance2		 	: in data port datatypes::distance;
+--		distance_result		: out data port datatypes::distance;
+--	flows
+--		f0: flow path distance1 -> distance_result;
+--		f1: flow path distance2 -> distance_result;
+--end distance_voter;
+--	
+--process implementation distance_voter.i
+--end distance_voter.i;
+
+
+thread distance_voter_thr
+	features
+		distance1 			: in data port datatypes::distance;
+		distance2		 	: in data port datatypes::distance;
+		distance_result		: out data port datatypes::distance;
+	flows
+		f0: flow path distance1 -> distance_result;
+		f1: flow path distance2 -> distance_result;
+	properties
+		Dispatch_Protocol => Periodic;
+		Period            => 8ms;		
+end distance_voter_thr;
+
+thread implementation distance_voter_thr.i
+end distance_voter_thr.i;
+
+
+end distance_processing;
