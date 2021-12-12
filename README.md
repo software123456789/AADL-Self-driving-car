@@ -12,3 +12,4 @@ Temat projektu: Opracowanie modelu (AADL) samochodu autonomicznego z uwzględnie
 ![image](https://user-images.githubusercontent.com/39568472/143691188-60892d55-9655-4bac-9fb3-5cf3461bc3e0.png)
 # Integracja z simulink - model prędkości
 ![image](https://user-images.githubusercontent.com/39568472/145717307-ae52f018-fc3f-4cc2-8bf7-7977f0b3a686.png)
+![image](https://user-images.githubusercontent.com/39568472/145717583-591bcbd6-1e92-4e34-b852-2198250feac3.png)
