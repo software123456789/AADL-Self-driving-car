@@ -10,4 +10,5 @@ Temat projektu: Opracowanie modelu (AADL) samochodu autonomicznego z uwzględnie
 ![self-driving-car-4](https://user-images.githubusercontent.com/39568472/141689099-a89d641d-298c-4756-bdd9-d6175a400923.PNG)
 # Propagacja błędów - ocena zagrożenia funkcjonalnego
 ![image](https://user-images.githubusercontent.com/39568472/143691188-60892d55-9655-4bac-9fb3-5cf3461bc3e0.png)
-
+# Integracja z simulink - model prędkości
+![image](https://user-images.githubusercontent.com/39568472/145717307-ae52f018-fc3f-4cc2-8bf7-7977f0b3a686.png)
